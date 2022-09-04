@@ -1,28 +1,22 @@
 const express = require("express");
-const {
-  getRandomUser,
-  getUsers,
-  saveUser,
-  updateUser,
-  deleteUser,
-} = require("../../controller/user.controller");
+const user = require("../../controller/user.controller");
 
 const router = express.Router();
 
 // GET ALL USERS - IF YOU WENT, YOU CAN USE QUERY PARAMETOR
 // (http://localhost:5000/user/all?size=number)
-router.get("/all", getUsers);
+router.get("/all", user.getUsers);
 
 // GET A RANDOM USER ROUTE
-router.get("/random", getRandomUser);
+router.get("/random", user.getRandomUser);
 
 // SAVE A USER
-router.post("save", saveUser);
+router.post("/save", user.saveUser);
 
 // UPDATE A USER
-router.patch("/update/:id", updateUser);
+router.patch("/update/:id", user.updateUser);
 
 // DELETE A USER
-router.delete("/delete/:id", deleteUser);
+router.delete("/delete/:id", user.deleteUser);
 
 module.exports = router;
