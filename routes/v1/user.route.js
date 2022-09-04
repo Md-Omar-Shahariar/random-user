@@ -16,6 +16,9 @@ router.post("/save", user.saveUser);
 // UPDATE A USER
 router.patch("/update/:id", user.updateUser);
 
+//Bulk-Update
+router.patch("/bulk-update/:ids", user.updateMultipleUser);
+
 // DELETE A USER
 router.delete("/delete/:id", user.deleteUser);
 

@@ -1,4 +1,5 @@
 let users = require("../data/data.json");
+console.log(users);
 
 // GET ALL USERS
 module.exports.getUsers = (req, res) => {
@@ -54,6 +55,40 @@ module.exports.updateUser = (req, res) => {
   // console.log(findUser);
 
   res.send(findUser);
+};
+module.exports.updateMultipleUser = (req, res) => {
+  const { ids } = req.params;
+  const idString = ids.slice(1, ids.length - 1);
+  const idArray = idString.split(",");
+
+  const data = req.body;
+  console.log(idArray);
+  console.log(data.length);
+  console.log(idArray.length);
+
+  if (idArray.length != data.length) {
+    res.send("Can't Assign");
+  } else {
+    const UpdatedArray = idArray.map((id, index) => {
+      const findUser = users.find((user) => user?.id === Number(id));
+      // console.log(findUser);
+
+      if (findUser) {
+        findUser.id = data[index]?.id || findUser.id;
+        findUser.address = data[index]?.address || findUser.address;
+        findUser.gender = data[index]?.gender || findUser.gender;
+        findUser.name = data[index]?.name || findUser.name;
+        findUser.contact = data[index]?.contact || findUser.contact;
+        findUser.photoUrl = data[index]?.photoUrl || findUser.photoUrl;
+      } else {
+        return res.send("User not found. Please give a valid id");
+      }
+      return findUser;
+      // console.log(findUser);
+    });
+    // console.log(users);
+    res.send(UpdatedArray);
+  }
 };
 
 // DELETE A USER
