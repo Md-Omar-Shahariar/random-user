@@ -17,8 +17,20 @@ module.exports.getRandomUser = (req, res) => {
 // SAVE A USER
 module.exports.saveUser = (req, res) => {
   const user = req.body;
-  users.push(user);
-  res.send(users);
+
+  if (
+    !user?.id ||
+    !user?.gender ||
+    !user?.name ||
+    !user?.contact ||
+    !user?.address ||
+    !user?.photoUrl
+  ) {
+    res.send("Missing Property");
+  } else {
+    users.push(user);
+    res.send(users);
+  }
 };
 
 // UPDATE A USER
